@@ -6,10 +6,26 @@ import org.hibernate.cfg.Configuration;
 
 public class Demo {
     public static void main(String[] args) {
+        // savCustomer();
+        // getCustomer("C01");
+        // updateCustomer("C01");
+    }
+
+    private static void getCustomer(String id) {
+        Configuration configuration= new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Customer.class);
+        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Customer c1 = session.get(Customer.class,id);
+        System.out.println(c1);
+    }
+
+    private static void saveCustomer(){
         Customer c1= new Customer("C01","Nimal","Colombo",2000);
         Configuration configuration= new Configuration()
                 .configure("hibernate.cfg.xml")
-                        .addAnnotatedClass(Customer.class);
+                .addAnnotatedClass(Customer.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
